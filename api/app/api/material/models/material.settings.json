@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "material",
+  "info": {
+    "name": "Material"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "veranstaltungens": {
+      "via": "materials",
+      "collection": "veranstaltungen"
+    }
+  }
+}

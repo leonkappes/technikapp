@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "veranstaltungen",
+  "info": {
+    "name": "veranstaltungen",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "needed": {
+      "type": "integer"
+    },
+    "accepted": {
+      "type": "integer"
+    },
+    "users_permissions_users": {
+      "via": "veranstaltungens",
+      "plugin": "users-permissions",
+      "collection": "user",
+      "dominant": true
+    },
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "materials": {
+      "collection": "material",
+      "via": "veranstaltungens",
+      "dominant": true
+    }
+  }
+}

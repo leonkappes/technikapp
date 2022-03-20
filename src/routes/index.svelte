@@ -2,8 +2,8 @@
 	<title>Technikteam | Home</title>
 </svelte:head>
 
-<div class="w-full h-full flex items-start justify-center relative p-3">
-	<div class="inline-block h-full w-full bg-sky-700 rounded-lg align-middle">
+<div class="w-full flex items-start justify-center p-3">
+	<div class="inline-block w-full bg-sky-700 rounded-lg align-middle">
 		<div class="flex flex-col items-center justify-center mt-4 text-white">
 			<h1 class="text-3xl my-2">Hallo</h1>
 			<p class="px-5 mb-4">

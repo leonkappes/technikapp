@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/veranstaltungens",
+      "handler": "veranstaltungen.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/veranstaltungens/count",
+      "handler": "veranstaltungen.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/veranstaltungens/:id",
+      "handler": "veranstaltungen.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/veranstaltungens",
+      "handler": "veranstaltungen.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/veranstaltungens/:id",
+      "handler": "veranstaltungen.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/veranstaltungens/:id",
+      "handler": "veranstaltungen.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

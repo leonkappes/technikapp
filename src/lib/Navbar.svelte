@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import user from '$lib/user';
+
 	let isHidden = true;
-	const activeClasses =
-		'text-white bg-sky-500 rounded md:bg-transparent md:p-0';
+	const activeClasses = 'text-white bg-sky-500 rounded md:bg-transparent md:p-0';
 	const inActiveClasses =
 		'text-white bg-sky-600 hover:bg-sky-500 rounded md:text-stone-300 md:bg-sky-700 md:hover:bg-transparent md:hover:text-white md:p-0';
 	function toggleNav() {
@@ -10,7 +11,7 @@
 	}
 </script>
 
-<nav class="bg-sky-700 border-gray-200 px-2 sm:px-4 py-2.5 shadow w-full">
+<nav class="bg-sky-700 px-3 sm:px-4 py-2.5 shadow w-full">
 	<div class="container flex flex-wrap justify-between items-center mx-auto">
 		<a href="/" class="flex items-center">
 			<span class="text-white p-2 self-center text-xl font-semibold whitespace-nowrap"
@@ -67,14 +68,16 @@
 							: inActiveClasses}">Veranstaltungen</a
 					>
 				</li>
-				<li>
-					<a
-						href="/login"
-						class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/login'
-							? activeClasses
-							: inActiveClasses}">Einloggen</a
-					>
-				</li>
+				{#if $user == null}
+					<li>
+						<a
+							href="/login"
+							class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/login'
+								? activeClasses
+								: inActiveClasses}">Einloggen</a
+						>
+					</li>
+				{/if}
 			</ul>
 		</div>
 	</div>

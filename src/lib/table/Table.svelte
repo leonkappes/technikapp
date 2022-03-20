@@ -8,7 +8,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 px-4 text-m text-left text-white uppercase"
+                    class="py-3 px-4 text-left text-white uppercase"
                 >
                     {name}
                 </th>
