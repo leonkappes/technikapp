@@ -3,5 +3,11 @@ module.exports = {
   theme: {
     extend: {}
   },
+  safelist: [
+    {
+      pattern: /bg-(red|sky|orange)-(500|600)/,
+      variants: ['hover', 'focus'],
+    },
+  ],
   plugins: []
 };

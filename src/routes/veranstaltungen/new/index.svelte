@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 
 	import Table from '$lib/Table/Table.svelte';
 	import user from '$lib/user';
@@ -16,42 +15,40 @@
 		if ($user.role.type != 'superuser') goto('/veranstaltungen');
 	});
 
-	let editId = $page.params.editId;
 	let event = fetchEvent();
 
-	let vals = {};
+	let vals = {
+		materials: [],
+		accepted: 0
+	};
 	let materials;
 	let error;
 
 	async function fetchEvent() {
-		const res = await fetch(`http://localhost:1337/veranstaltungens/${editId}`, {
-			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-		});
-		const data = await res.json();
-		vals = data;
 		const matRes = await fetch(`http://localhost:1337/materials`, {
 			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 		});
 		materials = await matRes.json();
-		return data;
+		return materials;
 	}
 
 	async function abort() {
-		return goto(`/veranstaltungen/${editId}`);
+		return goto(`/veranstaltungen`);
 	}
 
 	async function save() {
-		const res = await fetch(`http://localhost:1337/veranstaltungens/${editId}`, {
+		const res = await fetch(`http://localhost:1337/veranstaltungens/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			},
-			method: 'PUT',
+			method: 'POST',
 			body: JSON.stringify(vals)
 		});
 		const data = await res.json();
 		if (res.ok) {
-			goto(`/veranstaltungen/${editId}`);
+			goto(`/veranstaltungen/${data.id}`);
+			goto(`/veranstaltungen/${data.id}`);
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
@@ -86,6 +83,7 @@
 					<input
 						type="text"
 						id="title"
+						placeholder="Veranstaltungsname"
 						class="bg-sky-600 text-white placeholder:text-stone-300 text-center rounded-lg block w-full pl-4 p-2.5"
 						bind:value={vals.title}
 						required
@@ -95,6 +93,7 @@
 					<input
 						type="text"
 						id="date"
+						placeholder="Datum"
 						class="bg-sky-600 text-white placeholder:text-stone-300 text-center rounded-lg block w-full pl-4 p-2.5"
 						bind:value={vals.date}
 						required
@@ -104,10 +103,18 @@
 					<span
 						type="text"
 						id="description"
-						class="bg-sky-600 text-white placeholder:text-stone-300 whitespace-pre text-justify rounded-lg block w-full pl-4 p-2.5"
+						class="bg-sky-600 text-white placeholder:text-stone-300 whitespace-pre text-justify rounded-lg block w-full pl-4 p-2.5 before:empty:content-['Beschreibung'] before:empty:text-stone-300"
 						contenteditable
 						bind:innerHTML={vals.description}
 						required
+					/>
+				</p>
+				<p class="p-3 w-full flex flex-row">
+					<span class="mr-1">Techniker:</span>
+					<input
+						type="number"
+						bind:value={vals.needed}
+						class="bg-sky-600 text-white text-center placeholder:text-stone-300 rounded-lg block"
 					/>
 				</p>
 			</div>
@@ -119,11 +126,7 @@
 				</HeadRow>
 				{#each materials as material}
 					<TableRow
-						><CheckboxItem
-							checkboxVal={vals.materials.some((v) => v.id === material.id)}
-							name={material.name}
-							onChange={changeHandler}
-						/>
+						><CheckboxItem checkboxVal={false} name={material.name} onChange={changeHandler} />
 						<TableItem name={material.name} />
 					</TableRow>
 				{/each}

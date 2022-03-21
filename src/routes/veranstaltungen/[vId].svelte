@@ -1,10 +1,15 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import Table from '$lib/table/Table.svelte';
-	import TableItem from '$lib/table/TableItem.svelte';
+	import Table from '$lib/Table/Table.svelte';
+	import TableItem from '$lib/Table/Items/TableItem.svelte';
 	import user from '$lib/user';
 	import { onMount } from 'svelte';
+	import Button from '$lib/Button/Button.svelte';
+	import LinkButton from '$lib/Button/LinkButton.svelte';
+	import HeadRow from '$lib/Table/HeadRow.svelte';
+	import Headitem from '$lib/Table/Headitem.svelte';
+	import TableRow from '$lib/Table/Items/TableRow.svelte';
 
 	onMount(() => {
 		if (!$user) goto('/login');
@@ -40,7 +45,7 @@
 		});
 		const data = await res.json();
 		if (res.ok) {
-			event = fetchEvent()
+			event = fetchEvent();
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
@@ -62,7 +67,7 @@
 		});
 		const data = await res.json();
 		if (res.ok) {
-			event = fetchEvent()
+			event = fetchEvent();
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
@@ -79,7 +84,7 @@
 		});
 		const data = await res.json();
 		if (res.ok) {
-			goto('/veranstaltungen')
+			goto('/veranstaltungen');
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
@@ -109,15 +114,21 @@
 				</div>
 			</div>
 
-			<Table name="Techniker">
+			<Table>
+				<HeadRow slot="head">
+					<Headitem title="Techniker" />
+				</HeadRow>
 				{#each event.users_permissions_users as name}
-					<TableItem name={name.name} />
+					<TableRow><TableItem name={name.name} /></TableRow>
 				{/each}
 			</Table>
 
-			<Table name="Material">
+			<Table>
+				<HeadRow slot="head">
+					<Headitem title="Material" />
+				</HeadRow>
 				{#each event.materials as name}
-					<TableItem name={name.name} />
+					<TableRow><TableItem name={name.name} /></TableRow>
 				{/each}
 			</Table>
 
@@ -142,12 +153,7 @@
 						</div>
 					</button>
 				{:else}
-					<button
-						type="button"
-						href="/login"
-						class="text-white bg-sky-600 hover:bg-sky-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-						on:click={acceptEvent}
-					>
+					<Button type="button" onClick={acceptEvent}>
 						<div class="flex flex-row">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -159,13 +165,10 @@
 							</svg>
 							Eintragen
 						</div>
-					</button>
+					</Button>
 				{/if}
-				{#if $user.role.id == 3}
-					<a
-						href="/veranstaltungen/edit/{event.id}"
-						class="text-white bg-sky-600 hover:bg-sky-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-					>
+				{#if $user.role.type == 'superuser'}
+					<LinkButton href="/veranstaltungen/edit/{event.id}">
 						<div class="flex flex-row">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -179,13 +182,8 @@
 							</svg>
 							Bearbeiten
 						</div>
-					</a>
-					<button
-						type="button"
-						href="/login"
-						class="text-white bg-red-700 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-						on:click={deleteEvent}
-					>
+					</LinkButton>
+					<Button type="button" color="red" onClick={deleteEvent}>
 						<div class="flex flex-row">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +199,7 @@
 							</svg>
 							Löschen
 						</div>
-					</button>
+					</Button>
 				{/if}
 			</div>
 		{/await}

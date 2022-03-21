@@ -1,7 +1,8 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	import Card from '$lib/Card.svelte';
+	import Card from '$lib/Cards/Card.svelte';
+	import ClickableCard from '$lib/Cards/ClickableCard.svelte';
 	import user from '$lib/user';
 	import { onMount } from 'svelte';
 
@@ -13,6 +14,10 @@
 		});
 		const data = await res.json();
 		return data;
+	}
+
+	function createNew() {
+		goto('/veranstaltungen/new');
 	}
 
 	onMount(() => {
@@ -27,6 +32,9 @@
 		</div>
 		<div class="overflow-auto">
 			{#await veranstaltungen then veranstaltungen}
+				{#if $user.role.type == 'superuser'}
+					<ClickableCard onClick={createNew} title="Neue Veranstaltung erstellen" />
+				{/if}
 				{#each veranstaltungen as v}
 					<Card id={v.id} title={v.title} date={v.date} accepted={v.accepted} needed={v.needed} />
 				{/each}

@@ -68,6 +68,16 @@
 							: inActiveClasses}">Veranstaltungen</a
 					>
 				</li>
+				{#if $user != null && $user.role.type == 'superuser'}
+					<li>
+						<a
+							href="/users"
+							class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/users'
+								? activeClasses
+								: inActiveClasses}">Nutzerverwaltung</a
+						>
+					</li>
+				{/if}
 				{#if $user == null}
 					<li>
 						<a

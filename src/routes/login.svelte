@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import Button from '$lib/Button/Button.svelte';
 	import user from '$lib/user';
 
 	let identifier;
@@ -17,7 +18,6 @@
 			$user = data.user;
 			goto('/veranstaltungen');
 		}
-		console.log(data);
 	}
 </script>
 
@@ -49,11 +49,7 @@
 					required
 				/>
 			</div>
-			<button
-				type="submit"
-				class="text-white w-full font-bold md:w-auto bg-sky-600 hover:bg-sky-500 rounded-lg px-5 py-2.5 text-center"
-				>Einloggen</button
-			>
+			<Button type="submit">Einloggen</Button>
 		</form>
 	</div>
 </div>
