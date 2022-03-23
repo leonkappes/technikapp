@@ -68,7 +68,7 @@
 							: inActiveClasses}">Veranstaltungen</a
 					>
 				</li>
-				{#if $user != null && $user.role.type == 'superuser'}
+				{#if $user && $user.role.type == 'superuser'}
 					<li>
 						<a
 							href="/users"

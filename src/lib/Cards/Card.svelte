@@ -1,22 +1,21 @@
 <script>
-    export let id;
-    export let title;
-    export let date;
-    export let accepted;
-    export let needed;
+	import BaseCard from './BaseCard.svelte';
+
+	export let id;
+	export let title;
+	export let date;
+	export let accepted;
+	export let needed;
 </script>
 
-<a
-	href="/veranstaltungen/{id}"
-	class="flex flex-row items-center m-3 bg-sky-600 rounded-lg hover:bg-sky-500"
->
-	<div class="flex flex-col md:justify-between px-3 py-2 leading-normal">
+<a href="/veranstaltungen/{id}">
+	<BaseCard>
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-white ">
 			{title}
 		</h5>
 		<p class="font-normal text-white">
-			{date}<br>
-            Eingetragen: {accepted}/{needed}
+			{date}<br />
+			Eingetragen: {accepted}/{needed}
 		</p>
-	</div>
+	</BaseCard>
 </a>

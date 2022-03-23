@@ -1,0 +1,41 @@
+{
+    "name": "Technikteam Gymnasium Norf",
+    "short_name": "TechTeam Norf",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color" : "#fff" ,
+    "description": "Veranstaltungsmanagment für das Technikteam des Gymnasiums Norf.",
+    "icons": [{
+      "src": "favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }, {
+      "src": "favicon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }, {
+      "src": "favicon-152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }, {
+      "src": "favicon-167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    }, {
+      "src": "images/touch/homescreen192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, {
+        "src": "images/touch/homescreen196.png",
+        "sizes": "196x196",
+        "type": "image/png"
+    }],
+    "shortcuts": [
+        {
+          "name": "Kommende Veranstaltungen",
+          "short_name": "Veranstaltungen",
+          "description": "Liste mit kommenden Veranstaltungen ansehen",
+          "url": "/veranstaltungen"
+        }
+      ]
+  }

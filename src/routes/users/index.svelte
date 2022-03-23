@@ -2,23 +2,45 @@
 	import { goto } from '$app/navigation';
 
 	import Table from '$lib/Table/Table.svelte';
-	import TableItem from '$lib/Table/Items/TableItem.svelte';
 	import user from '$lib/user';
 	import { onMount } from 'svelte';
 	import ButtonItem from '$lib/Table/Items/ButtonItem.svelte';
-	import LinkButton from '$lib/Button/LinkButton.svelte';
 	import TableRow from '$lib/Table/Items/TableRow.svelte';
 	import Headitem from '$lib/Table/Headitem.svelte';
-import HeadRow from '$lib/Table/HeadRow.svelte';
+	import HeadRow from '$lib/Table/HeadRow.svelte';
+	import TableItem from '$lib/table/Items/TableItem.svelte';
+	import Button from '$lib/Button/Button.svelte';
+	import { getApiURL } from '$lib/util';
 
-	let users = fetchEvents();
+	let users = fetchUsers();
+	let success;
 
-	async function fetchEvents() {
-		const res = await fetch('http://localhost:1337/users', {
+	async function fetchUsers() {
+		const res = await fetch(`${getApiURL()}/users`, {
 			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 		});
 		const data = await res.json();
 		return data;
+	}
+
+	async function deleteUser(_, val) {
+		const res = await fetch(`${getApiURL()}/users/${val}`, {
+			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+		});
+		const data = await res.json();
+		if (res.ok && data.role.type != 'superuser') {
+			const resDel = await fetch(`${getApiURL()}/users/${val}`, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				},
+				method: 'DELETE'
+			});
+			if(res.ok) {
+				users = fetchUsers();
+				success = `Nutzer ${data.name} erfolgreich gelöscht!`;
+			}
+		}
 	}
 
 	onMount(() => {
@@ -32,6 +54,11 @@ import HeadRow from '$lib/Table/HeadRow.svelte';
 		<div class="flex flex-col items-center justify-center m-4 text-white">
 			<h1 class="text-5xl">Nutzerverwaltung</h1>
 		</div>
+		{#if success}
+			<div class="p-4 m-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+				<span class="font-medium">{success}!</span>
+			</div>
+		{/if}
 		<div class="overflow-auto">
 			{#await users then users}
 				<Table>
@@ -41,10 +68,25 @@ import HeadRow from '$lib/Table/HeadRow.svelte';
 					</HeadRow>
 					{#each users as u}
 						<TableRow
-							><TableItem name={u.name} /><ButtonItem
-								><LinkButton color="orange" href="/users/{u.id}">Bearbeiten</LinkButton></ButtonItem
-							></TableRow
-						>
+							><TableItem name={u.name} /><ButtonItem>
+								<div class="flex gap-3">
+									<Button color="red" onClick={deleteUser} customValue={u.id}
+										><svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+												clip-rule="evenodd"
+											/>
+										</svg></Button
+									>
+								</div>
+							</ButtonItem>
+						</TableRow>
 					{/each}
 				</Table>
 				<div class="flex flex-col md:flex-row m-3 mr-1 mb-1 justify-end">

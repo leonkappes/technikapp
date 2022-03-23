@@ -14,8 +14,7 @@
     }
     html, body {
         width: 100%;
-        @apply bg-sky-900;
-        @apply bg-opacity-90;
+        @apply bg-stone-200;
         @apply h-full;
     }
 }

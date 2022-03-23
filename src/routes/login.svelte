@@ -2,12 +2,14 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/Button/Button.svelte';
 	import user from '$lib/user';
+	import { getApiURL } from '$lib/util';
 
 	let identifier;
 	let password;
+	let error;
 
 	async function login() {
-		const res = await fetch('http://localhost:1337/auth/local', {
+		const res = await fetch(`${getApiURL()}/auth/local`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 			body: JSON.stringify({ identifier, password })
@@ -16,7 +18,9 @@
 		if (res.ok) {
 			localStorage.setItem('token', data.jwt);
 			$user = data.user;
-			goto('/veranstaltungen');
+			return goto('/veranstaltungen');
+		}else {
+			error = "Falscher Nutzername/Passwort!"
 		}
 	}
 </script>
@@ -26,6 +30,15 @@
 		<div class="flex flex-col items-center justify-center m-4 mb-0 text-white">
 			<h1 class="text-5xl">Login</h1>
 		</div>
+		{#if error}
+			<div
+				class="p-4 m-4 text-sm text-red-700 bg-red-100 rounded-lg"
+				role="alert"
+			>
+				<span class="font-medium">Fehler!</span>
+				{error}
+			</div>
+		{/if}
 		<form class="p-3" on:submit|preventDefault={login}>
 			<div class="mb-2">
 				<label for="name" class="block mb-2 text-lg text-white">Nutzername</label>

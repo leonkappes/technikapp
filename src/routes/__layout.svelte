@@ -2,6 +2,7 @@
 	import Navbar from '$lib/Navbar.svelte';
 	import Footer from '$lib/Footer.svelte';
 	import { onMount } from 'svelte';
+	import { getApiURL } from '$lib/util';
 	import userStore from '$lib/user';
 
 	import '../app.css';
@@ -17,13 +18,14 @@
 
 		if ($userStore == null) {
 			// Fetch the user from strapi
-			const res = await fetch('http://localhost:1337/auth/me', {
+			const res = await fetch(`${getApiURL()}/auth/me`, {
 				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 			});
 			const user = await res.json();
-			loading = false;
+
 			if (res.ok) {
 				$userStore = user;
+				loading = false;
 			}
 		}
 		loading = false;

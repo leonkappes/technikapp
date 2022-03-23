@@ -10,6 +10,7 @@
 	import Headitem from '$lib/Table/Headitem.svelte';
 	import TableRow from '$lib/Table/Items/TableRow.svelte';
 	import TableItem from '$lib/table/Items/TableItem.svelte';
+import { getApiURL } from '$lib/util';
 
 	onMount(() => {
 		if (!$user) goto('/login');
@@ -24,12 +25,12 @@
 	let error;
 
 	async function fetchEvent() {
-		const res = await fetch(`http://localhost:1337/veranstaltungens/${editId}`, {
+		const res = await fetch(`${getApiURL()}/veranstaltungens/${editId}`, {
 			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 		});
 		const data = await res.json();
 		vals = data;
-		const matRes = await fetch(`http://localhost:1337/materials`, {
+		const matRes = await fetch(`${getApiURL()}/materials`, {
 			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 		});
 		materials = await matRes.json();
@@ -41,7 +42,7 @@
 	}
 
 	async function save() {
-		const res = await fetch(`http://localhost:1337/veranstaltungens/${editId}`, {
+		const res = await fetch(`${getApiURL()}/veranstaltungens/${editId}`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${localStorage.getItem('token')}`

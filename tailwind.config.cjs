@@ -5,9 +5,11 @@ module.exports = {
   },
   safelist: [
     {
-      pattern: /bg-(red|sky|orange)-(500|600)/,
+      pattern: /bg-(red|sky)-(500|600)/,
       variants: ['hover', 'focus'],
     },
   ],
-  plugins: []
+  plugins: [
+    require('@tailwindcss/forms'),
+  ]
 };
