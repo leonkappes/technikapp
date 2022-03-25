@@ -111,6 +111,15 @@ import { getApiURL } from '$lib/util';
 						required
 					/>
 				</p>
+				<p class="p-3 w-full flex flex-row">
+					<span class="mr-1 mt-2">Techniker:</span>
+					<input
+						type="number"
+						bind:value={vals.needed}
+						min="1"
+						class="bg-sky-600 text-white border-none text-center placeholder:text-stone-300 rounded-lg block"
+					/>
+				</p>
 			</div>
 
 			<Table>

@@ -13,4 +13,4 @@
 - [ ] Anzahl übernommene Veranstaltungen
 - [ x ] Kontaktseite
 - [ ] Neue Materialien einpflegen
-- [ ] Technikeranzahl bearbeitbar machen
+- [ x ] Technikeranzahl bearbeitbar machen

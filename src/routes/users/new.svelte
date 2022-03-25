@@ -27,7 +27,7 @@
 	}
 
 	function composeLink(id) {
-		return `${getFullURL()}/register?id=${id}`;
+		return `${getFullURL()}/register/${id}`;
 	}
 
 	function dec2hex(dec) {

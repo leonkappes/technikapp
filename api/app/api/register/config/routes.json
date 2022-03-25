@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/registers/:id",
+      "path": "/registers/:link",
       "handler": "register.findOne",
       "config": {
         "policies": []

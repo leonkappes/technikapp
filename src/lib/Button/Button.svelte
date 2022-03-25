@@ -3,7 +3,7 @@
 
 	export let type = undefined;
 	export let color = 'sky';
-	export let onClick = undefined;
+	export let onClick = function(e, val) {};
 	export let customValue = undefined;
 </script>
 
