@@ -2,12 +2,12 @@ FROM strapi/base
 
 WORKDIR /srv/app
 
-COPY ./package.json ./
-COPY ./package-lock.json ./
+COPY ./app/package.json ./
+COPY ./app/package-lock.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./app .
 
 ENV NODE_ENV production
 
