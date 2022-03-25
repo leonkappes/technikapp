@@ -77,6 +77,14 @@
 								: inActiveClasses}">Nutzerverwaltung</a
 						>
 					</li>
+					<li>
+						<a
+							href="/materials"
+							class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/materials'
+								? activeClasses
+								: inActiveClasses}">Materialverwaltung</a
+						>
+					</li>
 				{/if}
 				{#if $user == null}
 					<li>
