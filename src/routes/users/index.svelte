@@ -64,11 +64,14 @@
 				<Table>
 					<HeadRow slot="head">
 						<Headitem title="Techniker" />
+						<Headitem title="Anzahl Veranstaltungen(total)" />
 						<Headitem title="" />
 					</HeadRow>
 					{#each users as u}
-						<TableRow
-							><TableItem name={u.name} /><ButtonItem>
+						<TableRow>
+							<TableItem name={u.name} />
+							<TableItem name={u.totaleVeranstaltungen} />
+							<ButtonItem>
 								<div class="flex gap-3">
 									<Button color="red" onClick={deleteUser} customValue={u.id}
 										><svg

@@ -65,6 +65,10 @@
     },
     "name": {
       "type": "string"
+    },
+    "totaleVeranstaltungen": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

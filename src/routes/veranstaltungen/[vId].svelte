@@ -45,8 +45,17 @@
 			body: JSON.stringify(toSend)
 		});
 		const data = await res.json();
-		if (res.ok) {
+		const res2 = await fetch(`${getApiURL()}/users/${$user.id}`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			},
+			method: 'PUT',
+			body: JSON.stringify({totaleVeranstaltungen: $user.totaleVeranstaltungen > 0 ? $user.totaleVeranstaltungen+1 : 1})
+		});
+		if (res.ok && res2.ok) {
 			event = fetchEvent();
+			$user = await res2.json();
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
@@ -66,9 +75,18 @@
 			method: 'PUT',
 			body: JSON.stringify(toSend)
 		});
+		const res2 = await fetch(`${getApiURL()}/users/${$user.id}`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			},
+			method: 'PUT',
+			body: JSON.stringify({totaleVeranstaltungen: $user.totaleVeranstaltungen > 1 ? $user.totaleVeranstaltungen-1 : 0})
+		});
 		const data = await res.json();
 		if (res.ok) {
 			event = fetchEvent();
+			$user = await res2.json();
 			return;
 		} else {
 			error = `Es ist ein Fehler beim eintragen aufgetreten: ${data.message}`;
