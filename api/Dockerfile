@@ -11,7 +11,7 @@ COPY . .
 
 ENV NODE_ENV production
 
-RUN mpm run build
+RUN npm run build
 
 EXPOSE 1337
 
