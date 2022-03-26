@@ -10,6 +10,8 @@ RUN npm install
 COPY ./app .
 
 ENV NODE_ENV production
+ENV VITE_FULL_URL "technikapp.elsetech.cloud"
+ENV VITE_API_URL "technikapp-api.elsetech.cloud"
 
 RUN npm run build
 
