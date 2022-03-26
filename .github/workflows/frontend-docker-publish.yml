@@ -13,7 +13,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   VITE_FULL_URL: "technikapp.elsetech.cloud"
-  VITE_API_URL: "api.technikapp.elsetech.cloud"
+  VITE_API_URL: "technikapp-api.elsetech.cloud"
 
 
 
