@@ -3,8 +3,8 @@ FROM node:16-alpine AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
-ENV VITE_FULL_URL "technikapp.elsetech.cloud"
-ENV VITE_API_URL "technikapp-api.elsetech.cloud"
+ARG VITE_FULL_URL "technikapp.elsetech.cloud"
+ARG VITE_API_URL "technikapp-api.elsetech.cloud"
 RUN npm ci
 RUN npm run build
 
