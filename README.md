@@ -1,40 +1,32 @@
-# create-svelte
+# Technikapp
+Managment software for events with needed materials, participants and a way of keeping track of team-members(and there efforts).
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# Running
+## Frontend
+### Docker:
+Build: `docker build -t technikapp . --build-arg VITE_FULL_RUL="YOURAPPLICATIONURL" --build-arg VITE_API_URL="URLTOBACKEND"`
 
-## Creating a project
+Run: `docker run -d -it technikapp`
+### From source:
+Build: `npm run build`
 
-If you're seeing this, you've probably already done this step. Congrats!
+Run: `node ./build`
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+## Backend
+>The project is located in the `api` folder
+### Docker:
+Build: `docker build -t technikapp-api .`
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+Run: `docker run -d -it technikapp-api`
+### From source:
+> Execute in the `app` subdirectory
 
-> Note: the `@next` is temporary
+Build: `npm run build`
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Run: `node run start`
+# Project structure
+## Frontend
+The frontend is build with svelte-kit and lies within the repository root.
+For styling tailwindcss is used.
+## Backend
+The backend uses strapi as a headless cms/database and for user authentication. The correspondig project lies in the `api/app` subfolder.
