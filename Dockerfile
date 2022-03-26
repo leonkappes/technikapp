@@ -10,6 +10,8 @@ RUN npm run build
 FROM node:16-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
+ENV VITE_FULL_URL "technikapp.elsetech.cloud"
+ENV VITE_API_URL "technikapp-api.elsetech.cloud"
 
 COPY --from=builder /app/build ./build
 COPY package*.json ./
