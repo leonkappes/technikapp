@@ -60,14 +60,16 @@
 						aria-current="page">Home</a
 					>
 				</li>
-				<li>
-					<a
-						href="/veranstaltungen"
-						class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/veranstaltungen'
-							? activeClasses
-							: inActiveClasses}">Veranstaltungen</a
-					>
-				</li>
+				{#if $user != null}
+					<li>
+						<a
+							href="/veranstaltungen"
+							class="block py-4 mt-3 md:m-0 pr-4 pl-3 {$page.url.pathname == '/veranstaltungen'
+								? activeClasses
+								: inActiveClasses}">Veranstaltungen</a
+						>
+					</li>
+				{/if}
 				{#if $user && $user.role.type == 'superuser'}
 					<li>
 						<a
